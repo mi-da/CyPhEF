@@ -1,0 +1,72 @@
+##### Constants #####
+
+#### network size ####
+SIZE 6
+
+#### drop is a probability, 0<=DROP<=1 ####
+DROP 0
+
+#### parameters of periodic execution ####
+#CYCLES  10  # number of cycles
+#CYCLE 1000  # cycle lasts 100 ms
+
+#### EDSimulator parameters ####
+simulation.endtime 200000 # ms
+
+# simulation.logtime 1000
+
+#### Network parameters
+network.size SIZE
+network.node se.mida.entity.GeneralNode
+
+#### Linkable protocol #####
+protocol.lnk IdleProtocol
+
+##### Wiring protocol ######
+init.wire WireStar
+init.wire.protocol lnk
+init.wire.undir true
+
+#### Transport Layer ####
+protocol.tran UniformRandomTransport
+protocol.tran.mindelay 50
+protocol.tran.maxdelay 90
+protocol.tr UnreliableTransport
+protocol.tr.transport tran
+protocol.tr.drop DROP
+
+#### Monitor Layer ####
+protocol.monitor se.mida.protocol.Monitor
+protocol.monitor.linkable lnk
+protocol.monitor.transport tr
+protocol.monitor.execute execute
+
+#### Execute Layer ####
+protocol.execute se.mida.protocol.Execute
+protocol.execute.linkable lnk
+protocol.execute.transport tr
+
+## Protocol initializer
+init.protinit se.mida.initializers.ProtocolInitializer
+init.protinit.monitor monitor
+init.protinit.execute execute
+
+## Network initializer
+init.netinit se.mida.initializers.NetworkInitializer
+init.netinit.transport tran
+
+# Simulation Observer
+# control.simo se.mida.control.SimulationObserver
+# control.simo.step CYCLE
+
+#init.sch CDScheduler
+#init.sch.protocol monitor
+#init.sch.randstart
+
+#control.shf Shuffle # Shuffles the order in which the nodes are iterated over during a cycle
+#control.shf.step CYCLE
+
+# Shuffle
+#control.shf Shuffle
+
+include.init wire netinit protinit
