@@ -1,7 +1,4 @@
 # OCL Rules
-
-<code>
-
 <pre style='color:#000000;background:#ffffff;'>Package patternGenerator : patternGenerator = 'http:<span style='color:#696969; '>//</span><span style='color:#5555dd; '>www.example.org/patternGenerator</span><span style='color:#696969; '>'</span>
 <span style='color:#800080; '>{</span>
 	package informationSharing <span style='color:#808030; '>:</span> informationSharing <span style='color:#808030; '>=</span> <span style='color:#ffffff; background:#dd0000; font-weight:bold; font-style:italic; '>'http://www.example.org/patternGenerator/informationSharing'</span>
@@ -260,5 +257,3 @@
 								<span style='color:#800080; '>}</span>
 <span style='color:#800080; '>}</span>
 </pre>
-
-</code>
