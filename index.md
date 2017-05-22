@@ -2,262 +2,263 @@
 
 <code>
 
-Package patternGenerator : patternGenerator = 'http://www.example.org/patternGenerator'
-{
-	package informationSharing : informationSharing = 'http://www.example.org/patternGenerator/informationSharing'
-	{
-		class Peer extends patternGenerator::ManagingSystem{
-			invariant monitorSpeaksWithAnalyze: getAllMyIntraComponentInteractions
-										->select(context.oclIsKindOf(Monitor))
-										->select(target.oclIsKindOf(Analyze))->size()>0;
-			invariant analyzeSpeaksWithPlan: getAllMyIntraComponentInteractions
-										->select(context.oclIsKindOf(Analyze))
-										->select(target.oclIsKindOf(Plan))->size()>0;
-			invariant planSpeaksWithExecute: getAllMyIntraComponentInteractions
-										->select(context.oclIsKindOf(Plan))
-										->select(target.oclIsKindOf(Execute))->size()>0;
+<pre style='color:#000000;background:#ffffff;'>Package patternGenerator : patternGenerator = 'http:<span style='color:#696969; '>//</span><span style='color:#5555dd; '>www.example.org/patternGenerator</span><span style='color:#696969; '>'</span>
+<span style='color:#800080; '>{</span>
+	package informationSharing <span style='color:#808030; '>:</span> informationSharing <span style='color:#808030; '>=</span> <span style='color:#ffffff; background:#dd0000; font-weight:bold; font-style:italic; '>'http://www.example.org/patternGenerator/informationSharing'</span>
+	<span style='color:#800080; '>{</span>
+		<span style='color:#800000; font-weight:bold; '>class</span> Peer <span style='color:#800000; font-weight:bold; '>extends</span> patternGenerator<span style='color:#808030; '>:</span><span style='color:#808030; '>:</span>ManagingSystem<span style='color:#800080; '>{</span>
+			invariant monitorSpeaksWithAnalyze<span style='color:#808030; '>:</span> getAllMyIntraComponentInteractions
+										<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>context<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Monitor<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+										<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>target<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Analyze<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+			invariant analyzeSpeaksWithPlan<span style='color:#808030; '>:</span> getAllMyIntraComponentInteractions
+										<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>context<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Analyze<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+										<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>target<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Plan<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+			invariant planSpeaksWithExecute<span style='color:#808030; '>:</span> getAllMyIntraComponentInteractions
+										<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>context<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Plan<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+										<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>target<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Execute<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
 										
-			invariant speackMonitor: getMyContextInterComponentInteractions
-										->select(not context.oclIsKindOf(Monitor))
-										->size() = 0;
+			invariant speackMonitor<span style='color:#808030; '>:</span> getMyContextInterComponentInteractions
+										<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>not context<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Monitor<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+										<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
 										
 			
-		}
-		class InformationSharingPattern extends patternGenerator::DecentralizedControlPattern{
-			invariant atLeastOnePeer: self.elements->select(oclIsKindOf(Peer))->size()>0;
-			attribute peerNumber : Integer[1] { derived readonly transient volatile }
-			{
-				initial: self.elements->select(oclIsKindOf(Peer))->size();
-				}
-			invariant maxIntraInteractionAllowed: self.elements
-									->select(oclIsKindOf(IntraComponentInteraction))
-									->size() <= 3*peerNumber;
+		<span style='color:#800080; '>}</span>
+		<span style='color:#800000; font-weight:bold; '>class</span> InformationSharingPattern <span style='color:#800000; font-weight:bold; '>extends</span> patternGenerator<span style='color:#808030; '>:</span><span style='color:#808030; '>:</span>DecentralizedControlPattern<span style='color:#800080; '>{</span>
+			invariant atLeastOnePeer<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>elements<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclIsKindOf<span style='color:#808030; '>(</span>Peer<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+			attribute peerNumber <span style='color:#808030; '>:</span> <span style='color:#bb7977; font-weight:bold; '>Integer</span><span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> derived readonly <span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+			<span style='color:#800080; '>{</span>
+				initial<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>elements<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclIsKindOf<span style='color:#808030; '>(</span>Peer<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+				<span style='color:#800080; '>}</span>
+			invariant maxIntraInteractionAllowed<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>elements
+									<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclIsKindOf<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+									<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>=</span> <span style='color:#008c00; '>3</span><span style='color:#808030; '>*</span>peerNumber<span style='color:#800080; '>;</span>
 									
-			invariant peersMonitorSpeakOnlyEachOther: self.elements
-									->select(oclIsKindOf(InterComponentInteraction))
-									->select(oclAsType(Interaction).targetAndContextNotNull)
-									->select( not (oclAsType(Interaction).context.oclIsKindOf(Monitor)
-				 					and oclAsType(Interaction).target.oclIsKindOf(Monitor)))
-									->size() = 0;
-		}
-	}
-	package masterSlave : masterSlave = 'http://www.example.org/patternGenerator/masterSlave'
-	{
-		class MasterSlavePattern extends patternGenerator::DecentralizedControlPattern
-		{
-			attribute slaveNumber : Integer[1] { derived readonly transient volatile }
-			{
-				initial: self.elements->select(managingSystem | managingSystem.oclIsKindOf(Slave))->size();
-				}
+			invariant peersMonitorSpeakOnlyEachOther<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>elements
+									<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclIsKindOf<span style='color:#808030; '>(</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+									<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclAsType<span style='color:#808030; '>(</span>Interaction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>targetAndContextNotNull<span style='color:#808030; '>)</span>
+									<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> not <span style='color:#808030; '>(</span>oclAsType<span style='color:#808030; '>(</span>Interaction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>context<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Monitor<span style='color:#808030; '>)</span>
+				 					and oclAsType<span style='color:#808030; '>(</span>Interaction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>target<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Monitor<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+									<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+		<span style='color:#800080; '>}</span>
+	<span style='color:#800080; '>}</span>
+	package masterSlave <span style='color:#808030; '>:</span> masterSlave <span style='color:#808030; '>=</span> <span style='color:#ffffff; background:#dd0000; font-weight:bold; font-style:italic; '>'http://www.example.org/patternGenerator/masterSlave'</span>
+	<span style='color:#800080; '>{</span>
+		<span style='color:#800000; font-weight:bold; '>class</span> MasterSlavePattern <span style='color:#800000; font-weight:bold; '>extends</span> patternGenerator<span style='color:#808030; '>:</span><span style='color:#808030; '>:</span>DecentralizedControlPattern
+		<span style='color:#800080; '>{</span>
+			attribute slaveNumber <span style='color:#808030; '>:</span> <span style='color:#bb7977; font-weight:bold; '>Integer</span><span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> derived readonly <span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+			<span style='color:#800080; '>{</span>
+				initial<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>elements<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>managingSystem <span style='color:#808030; '>|</span> managingSystem<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Slave<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+				<span style='color:#800080; '>}</span>
 				invariant
-				exactlyOneMaster('ohohoh'): self.elements->select(managingSystem | managingSystem.oclIsKindOf(Master))->size() = 1;
-				invariant atLeastOneSlave: self.elements->select(managingSystem | managingSystem.oclIsKindOf(Slave))->size() >= 1;
+				exactlyOneMaster<span style='color:#808030; '>(</span><span style='color:#ffffff; background:#dd0000; font-weight:bold; font-style:italic; '>'ohohoh'</span><span style='color:#808030; '>)</span><span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>elements<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>managingSystem <span style='color:#808030; '>|</span> managingSystem<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Master<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>
+				invariant atLeastOneSlave<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>elements<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>managingSystem <span style='color:#808030; '>|</span> managingSystem<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Slave<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>></span><span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>
 				invariant
-				maxInterComponentInteractionAllowed: 
-			self.elements->select(interaction | interaction.oclIsKindOf(patternGenerator::InterComponentInteraction))
-			->size() <= 2*slaveNumber;
+				maxInterComponentInteractionAllowed<span style='color:#808030; '>:</span> 
+			self<span style='color:#808030; '>.</span>elements<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>interaction <span style='color:#808030; '>|</span> interaction<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>patternGenerator<span style='color:#808030; '>:</span><span style='color:#808030; '>:</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+			<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>=</span> <span style='color:#008c00; '>2</span><span style='color:#808030; '>*</span>slaveNumber<span style='color:#800080; '>;</span>
 				invariant
-				maxIntraComponentInteractionAllowed: 
-			self.elements->select(interaction | interaction.oclIsKindOf(patternGenerator::IntraComponentInteraction))
-			->size() <= 1;
-			}
-			class Master extends patternGenerator::ManagingSystem
-			{
-				invariant hasNOMonitor: self.monitor = null;
-				invariant hasAnalyze: self.analyze <> null;
-				invariant hasPlan: self.plan <> null;
-				invariant hasNOExecute: self.execute = null;
-				invariant hasKnowledge: self.knowledge <> null;
-				invariant hasNOManagedSystem: self.managedSystem = null;
+				maxIntraComponentInteractionAllowed<span style='color:#808030; '>:</span> 
+			self<span style='color:#808030; '>.</span>elements<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>interaction <span style='color:#808030; '>|</span> interaction<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>patternGenerator<span style='color:#808030; '>:</span><span style='color:#808030; '>:</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+			<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>=</span> <span style='color:#008c00; '>1</span><span style='color:#800080; '>;</span>
+			<span style='color:#800080; '>}</span>
+			<span style='color:#800000; font-weight:bold; '>class</span> Master <span style='color:#800000; font-weight:bold; '>extends</span> patternGenerator<span style='color:#808030; '>:</span><span style='color:#808030; '>:</span>ManagingSystem
+			<span style='color:#800080; '>{</span>
+				invariant hasNOMonitor<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>monitor <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+				invariant hasAnalyze<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>analyze <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+				invariant hasPlan<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>plan <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+				invariant hasNOExecute<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>execute <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+				invariant hasKnowledge<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>knowledge <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+				invariant hasNOManagedSystem<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>managedSystem <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
 				invariant
-				AnalyzeSpeaksWithPlan: getAllMyIntraComponentInteractions
-										->select(context.oclIsKindOf(Analyze))
-										->select(target.oclIsKindOf(Plan))->size()>0;
-				invariant getMyTargetInter: getMyTargetInterComponentInteractions->size()>0;
-				invariant getMyContextInter: getMyContextInterComponentInteractions->size()>0;
-				invariant getAllMyIntra: getAllIntraComponentInteractions->size()>0;
-			}
-			class Slave extends patternGenerator::ManagingSystem
-			{
-				invariant hasMonitor: self.monitor <> null;
-				invariant hasNOAnalyze: self.analyze = null;
-				invariant hasNOPlan: self.plan = null;
-				invariant hasExecute: self.execute <> null;
-				invariant hasNOKnowledge: self.knowledge = null;
-				invariant hasManagedSystem: self.managedSystem <> null;
+				AnalyzeSpeaksWithPlan<span style='color:#808030; '>:</span> getAllMyIntraComponentInteractions
+										<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>context<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Analyze<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+										<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>target<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Plan<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+				invariant getMyTargetInter<span style='color:#808030; '>:</span> getMyTargetInterComponentInteractions<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+				invariant getMyContextInter<span style='color:#808030; '>:</span> getMyContextInterComponentInteractions<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+				invariant getAllMyIntra<span style='color:#808030; '>:</span> getAllIntraComponentInteractions<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+			<span style='color:#800080; '>}</span>
+			<span style='color:#800000; font-weight:bold; '>class</span> Slave <span style='color:#800000; font-weight:bold; '>extends</span> patternGenerator<span style='color:#808030; '>:</span><span style='color:#808030; '>:</span>ManagingSystem
+			<span style='color:#800080; '>{</span>
+				invariant hasMonitor<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>monitor <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+				invariant hasNOAnalyze<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>analyze <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+				invariant hasNOPlan<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>plan <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+				invariant hasExecute<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>execute <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+				invariant hasNOKnowledge<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>knowledge <span style='color:#808030; '>=</span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+				invariant hasManagedSystem<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>managedSystem <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
 				invariant
-				SlaveMonitorSpeaksWithMasterAnalyze: getMyContextInterComponentInteractions
-							->select(context.oclIsKindOf(Monitor))
-							->select(target.oclIsKindOf(Analyze))
-							->size()>0;
+				SlaveMonitorSpeaksWithMasterAnalyze<span style='color:#808030; '>:</span> getMyContextInterComponentInteractions
+							<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>context<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Monitor<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+							<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>target<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Analyze<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+							<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
 				invariant
-				MasterPlanSpeaksWithSlaveExecute: getMyTargetInterComponentInteractions
-							->select(context.oclIsKindOf(Plan))
-							->select(target.oclIsKindOf(Execute))->size()>0;
-			}
-		}
-		abstract class Element;
-		abstract class ManagingSystem extends Element
-		{
-			attribute hasInterComponentInteractions : Boolean[1] { derived readonly transient volatile }
-			{
-				initial: if (self.oclContainer().oclAsType(DecentralizedControlPattern).elements
-						->select(oclIsKindOf(InterComponentInteraction))
-						->select(oclAsType(Interaction).targetAndContextNotNull )->size()>0
-					) then true
-					else false
-					endif;
-				}
-				attribute hasIntraComponentInteractions : Boolean[1] { derived readonly transient volatile }
-				{
-					initial: if (self.oclContainer().oclAsType(DecentralizedControlPattern).elements
-						->select(oclIsKindOf(IntraComponentInteraction))
-						->select( oclAsType(IntraComponentInteraction).context <> null)
-						->select( oclAsType(IntraComponentInteraction).target <> null)->size()>0
-					) then true
-					else false
-					endif;
-					}
-					property getAllInterComponentInteractions : InterComponentInteraction[*|1] { ordered derived readonly transient
-					volatile }
-					{
-						initial: if(hasInterComponentInteractions)
+				MasterPlanSpeaksWithSlaveExecute<span style='color:#808030; '>:</span> getMyTargetInterComponentInteractions
+							<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>context<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Plan<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+							<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>target<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Execute<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#800080; '>;</span>
+			<span style='color:#800080; '>}</span>
+		<span style='color:#800080; '>}</span>
+		<span style='color:#800000; font-weight:bold; '>abstract</span> <span style='color:#800000; font-weight:bold; '>class</span> Element<span style='color:#800080; '>;</span>
+		<span style='color:#800000; font-weight:bold; '>abstract</span> <span style='color:#800000; font-weight:bold; '>class</span> ManagingSystem <span style='color:#800000; font-weight:bold; '>extends</span> Element
+		<span style='color:#800080; '>{</span>
+			attribute hasInterComponentInteractions <span style='color:#808030; '>:</span> Boolean<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> derived readonly <span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+			<span style='color:#800080; '>{</span>
+				initial<span style='color:#808030; '>:</span> <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>self<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>DecentralizedControlPattern<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>elements
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclIsKindOf<span style='color:#808030; '>(</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclAsType<span style='color:#808030; '>(</span>Interaction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>targetAndContextNotNull <span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span>
+					<span style='color:#808030; '>)</span> then <span style='color:#800000; font-weight:bold; '>true</span>
+					<span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>false</span>
+					endif<span style='color:#800080; '>;</span>
+				<span style='color:#800080; '>}</span>
+				attribute hasIntraComponentInteractions <span style='color:#808030; '>:</span> Boolean<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> derived readonly <span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+				<span style='color:#800080; '>{</span>
+					initial<span style='color:#808030; '>:</span> <span style='color:#800000; font-weight:bold; '>if</span> <span style='color:#808030; '>(</span>self<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>DecentralizedControlPattern<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>elements
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclIsKindOf<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> oclAsType<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>context <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span>
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> oclAsType<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>target <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span>
+					<span style='color:#808030; '>)</span> then <span style='color:#800000; font-weight:bold; '>true</span>
+					<span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>false</span>
+					endif<span style='color:#800080; '>;</span>
+					<span style='color:#800080; '>}</span>
+					property getAllInterComponentInteractions <span style='color:#808030; '>:</span> InterComponentInteraction<span style='color:#808030; '>[</span><span style='color:#808030; '>*</span><span style='color:#808030; '>|</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> ordered derived readonly <span style='color:#800000; font-weight:bold; '>transient</span>
+					<span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+					<span style='color:#800080; '>{</span>
+						initial<span style='color:#808030; '>:</span> <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>hasInterComponentInteractions<span style='color:#808030; '>)</span>
 					then
-						self.oclContainer().oclAsType(DecentralizedControlPattern).elements
-						->select(oclIsKindOf(InterComponentInteraction))
-						->select(oclAsType(Interaction).targetAndContextNotNull)
-						->oclAsType(OrderedSet(InterComponentInteraction))
-					else OrderedSet(InterComponentInteraction){}
-					endif;
-					}
-					attribute hasMyTargetInterComponentInteractions : Boolean[1] { derived readonly transient volatile }
-					{
-						initial: 
-						if(self.getAllInterComponentInteractions
-							->select( m | m.target.oclContainer().oclAsType(ManagingSystem) = self)
-							->size()>0) then true
-						else false
-						endif;
-						}
-						property getMyTargetInterComponentInteractions : InterComponentInteraction[*] { ordered derived readonly
-						transient volatile }
-						{
-							initial: if(hasMyTargetInterComponentInteractions)
-								then self.getAllInterComponentInteractions
-									->select( m | m.target.oclContainer().oclAsType(ManagingSystem) = self)
-								else OrderedSet(InterComponentInteraction){}
-								endif;
-						}
-						attribute hasMyContextInterComponentInteractions : Boolean[1] { derived readonly transient volatile }
-						{
-							initial: 
-						if(self.getAllInterComponentInteractions
-							->select( m | m.context.oclContainer().oclAsType(ManagingSystem) = self)
-							->size()>0) then true
-						else false
-						endif;
-							}
-							property getMyContextInterComponentInteractions : InterComponentInteraction[*] { ordered derived readonly
-							transient volatile }
-							{
-								initial: if(hasMyContextInterComponentInteractions)
-								then self.getAllInterComponentInteractions
-									->select( m | m.context.oclContainer().oclAsType(ManagingSystem) = self)
-								else OrderedSet(InterComponentInteraction){}
-								endif;
-							}
-							property getAllIntraComponentInteractions : IntraComponentInteraction[*] { ordered derived readonly transient
-							volatile }
-							{
-								initial: if(hasIntraComponentInteractions)
+						self<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>DecentralizedControlPattern<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>elements
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclIsKindOf<span style='color:#808030; '>(</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclAsType<span style='color:#808030; '>(</span>Interaction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>targetAndContextNotNull<span style='color:#808030; '>)</span>
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>oclAsType<span style='color:#808030; '>(</span>OrderedSet<span style='color:#808030; '>(</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+					<span style='color:#800000; font-weight:bold; '>else</span> OrderedSet<span style='color:#808030; '>(</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#800080; '>{</span><span style='color:#800080; '>}</span>
+					endif<span style='color:#800080; '>;</span>
+					<span style='color:#800080; '>}</span>
+					attribute hasMyTargetInterComponentInteractions <span style='color:#808030; '>:</span> Boolean<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> derived readonly <span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+					<span style='color:#800080; '>{</span>
+						initial<span style='color:#808030; '>:</span> 
+						<span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>self<span style='color:#808030; '>.</span>getAllInterComponentInteractions
+							<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> m <span style='color:#808030; '>|</span> m<span style='color:#808030; '>.</span>target<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>ManagingSystem<span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> self<span style='color:#808030; '>)</span>
+							<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span> then <span style='color:#800000; font-weight:bold; '>true</span>
+						<span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>false</span>
+						endif<span style='color:#800080; '>;</span>
+						<span style='color:#800080; '>}</span>
+						property getMyTargetInterComponentInteractions <span style='color:#808030; '>:</span> InterComponentInteraction<span style='color:#808030; '>[</span><span style='color:#808030; '>*</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> ordered derived readonly
+						<span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+						<span style='color:#800080; '>{</span>
+							initial<span style='color:#808030; '>:</span> <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>hasMyTargetInterComponentInteractions<span style='color:#808030; '>)</span>
+								then self<span style='color:#808030; '>.</span>getAllInterComponentInteractions
+									<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> m <span style='color:#808030; '>|</span> m<span style='color:#808030; '>.</span>target<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>ManagingSystem<span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> self<span style='color:#808030; '>)</span>
+								<span style='color:#800000; font-weight:bold; '>else</span> OrderedSet<span style='color:#808030; '>(</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#800080; '>{</span><span style='color:#800080; '>}</span>
+								endif<span style='color:#800080; '>;</span>
+						<span style='color:#800080; '>}</span>
+						attribute hasMyContextInterComponentInteractions <span style='color:#808030; '>:</span> Boolean<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> derived readonly <span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+						<span style='color:#800080; '>{</span>
+							initial<span style='color:#808030; '>:</span> 
+						<span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>self<span style='color:#808030; '>.</span>getAllInterComponentInteractions
+							<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> m <span style='color:#808030; '>|</span> m<span style='color:#808030; '>.</span>context<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>ManagingSystem<span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> self<span style='color:#808030; '>)</span>
+							<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span> then <span style='color:#800000; font-weight:bold; '>true</span>
+						<span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>false</span>
+						endif<span style='color:#800080; '>;</span>
+							<span style='color:#800080; '>}</span>
+							property getMyContextInterComponentInteractions <span style='color:#808030; '>:</span> InterComponentInteraction<span style='color:#808030; '>[</span><span style='color:#808030; '>*</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> ordered derived readonly
+							<span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+							<span style='color:#800080; '>{</span>
+								initial<span style='color:#808030; '>:</span> <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>hasMyContextInterComponentInteractions<span style='color:#808030; '>)</span>
+								then self<span style='color:#808030; '>.</span>getAllInterComponentInteractions
+									<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> m <span style='color:#808030; '>|</span> m<span style='color:#808030; '>.</span>context<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>ManagingSystem<span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> self<span style='color:#808030; '>)</span>
+								<span style='color:#800000; font-weight:bold; '>else</span> OrderedSet<span style='color:#808030; '>(</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#800080; '>{</span><span style='color:#800080; '>}</span>
+								endif<span style='color:#800080; '>;</span>
+							<span style='color:#800080; '>}</span>
+							property getAllIntraComponentInteractions <span style='color:#808030; '>:</span> IntraComponentInteraction<span style='color:#808030; '>[</span><span style='color:#808030; '>*</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> ordered derived readonly <span style='color:#800000; font-weight:bold; '>transient</span>
+							<span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+							<span style='color:#800080; '>{</span>
+								initial<span style='color:#808030; '>:</span> <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>hasIntraComponentInteractions<span style='color:#808030; '>)</span>
 					then
-						self.oclContainer().oclAsType(DecentralizedControlPattern).elements
-						->select( m | m.oclIsKindOf(IntraComponentInteraction))
-						->select(oclAsType(IntraComponentInteraction).target <> null) 
-						->select(oclAsType(IntraComponentInteraction).context<> null)
-						->oclAsType(OrderedSet(IntraComponentInteraction))
-					else OrderedSet(IntraComponentInteraction){}
-					endif;
-							}
-							attribute hasMyIntraComponentInteractions : Boolean[1] { derived readonly transient volatile }
-							{
-								initial: if(getAllIntraComponentInteractions
-						-> select(target.oclContainer().oclAsType(ManagingSystem) = self)->size()>0)
-						then true
-						else false
-						endif;
-								}
-								property getAllMyIntraComponentInteractions : IntraComponentInteraction[*] { ordered derived readonly
-								transient volatile }
-								{
-									initial: if(hasMyIntraComponentInteractions)
-							then getAllIntraComponentInteractions->select(target.oclContainer().oclAsType(ManagingSystem) = self)
-							->oclAsType(OrderedSet(IntraComponentInteraction))
-						else OrderedSet(IntraComponentInteraction){}
-						endif;
-								}
-								property analyze : Analyze[?] { composes };
-								property plan : Plan[?] { composes };
-								property execute : Execute[?] { composes };
-								attribute name : String[?];
-								property managedSystem : ManagedSystem[?] { composes };
-								property knowledge : Knowledge[?] { composes };
-								property monitor : Monitor[?] { composes };
+						self<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>DecentralizedControlPattern<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>elements
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> m <span style='color:#808030; '>|</span> m<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclAsType<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>target <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span> 
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>oclAsType<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>context<span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span>
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>oclAsType<span style='color:#808030; '>(</span>OrderedSet<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+					<span style='color:#800000; font-weight:bold; '>else</span> OrderedSet<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#800080; '>{</span><span style='color:#800080; '>}</span>
+					endif<span style='color:#800080; '>;</span>
+							<span style='color:#800080; '>}</span>
+							attribute hasMyIntraComponentInteractions <span style='color:#808030; '>:</span> Boolean<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> derived readonly <span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+							<span style='color:#800080; '>{</span>
+								initial<span style='color:#808030; '>:</span> <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>getAllIntraComponentInteractions
+						<span style='color:#808030; '>-</span><span style='color:#808030; '>></span> select<span style='color:#808030; '>(</span>target<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>ManagingSystem<span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> self<span style='color:#808030; '>)</span><span style='color:#808030; '>-</span><span style='color:#808030; '>></span>size<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>></span><span style='color:#008c00; '>0</span><span style='color:#808030; '>)</span>
+						then <span style='color:#800000; font-weight:bold; '>true</span>
+						<span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>false</span>
+						endif<span style='color:#800080; '>;</span>
+								<span style='color:#800080; '>}</span>
+								property getAllMyIntraComponentInteractions <span style='color:#808030; '>:</span> IntraComponentInteraction<span style='color:#808030; '>[</span><span style='color:#808030; '>*</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> ordered derived readonly
+								<span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+								<span style='color:#800080; '>{</span>
+									initial<span style='color:#808030; '>:</span> <span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>hasMyIntraComponentInteractions<span style='color:#808030; '>)</span>
+							then getAllIntraComponentInteractions<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span>target<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>ManagingSystem<span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> self<span style='color:#808030; '>)</span>
+							<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>oclAsType<span style='color:#808030; '>(</span>OrderedSet<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+						<span style='color:#800000; font-weight:bold; '>else</span> OrderedSet<span style='color:#808030; '>(</span>IntraComponentInteraction<span style='color:#808030; '>)</span><span style='color:#800080; '>{</span><span style='color:#800080; '>}</span>
+						endif<span style='color:#800080; '>;</span>
+								<span style='color:#800080; '>}</span>
+								property analyze <span style='color:#808030; '>:</span> Analyze<span style='color:#808030; '>[</span><span style='color:#808030; '>?</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> composes <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+								property plan <span style='color:#808030; '>:</span> Plan<span style='color:#808030; '>[</span><span style='color:#808030; '>?</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> composes <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+								property execute <span style='color:#808030; '>:</span> Execute<span style='color:#808030; '>[</span><span style='color:#808030; '>?</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> composes <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+								attribute name <span style='color:#808030; '>:</span> <span style='color:#bb7977; font-weight:bold; '>String</span><span style='color:#808030; '>[</span><span style='color:#808030; '>?</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+								property managedSystem <span style='color:#808030; '>:</span> ManagedSystem<span style='color:#808030; '>[</span><span style='color:#808030; '>?</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> composes <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+								property knowledge <span style='color:#808030; '>:</span> Knowledge<span style='color:#808030; '>[</span><span style='color:#808030; '>?</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> composes <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+								property monitor <span style='color:#808030; '>:</span> Monitor<span style='color:#808030; '>[</span><span style='color:#808030; '>?</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> composes <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
 								invariant
-								hasAtLeastAMapeKComponent: self.monitor <> null or self.analyze <> null or self.plan <> null
-		or self.execute <> null or self.knowledge <> null;
+								hasAtLeastAMapeKComponent<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>monitor <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span> or self<span style='color:#808030; '>.</span>analyze <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span> or self<span style='color:#808030; '>.</span>plan <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span>
+		or self<span style='color:#808030; '>.</span>execute <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span> or self<span style='color:#808030; '>.</span>knowledge <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
 								invariant
-								boh: self.oclContainer().oclAsType(DecentralizedControlPattern).elements
-			->select( m | m.oclIsKindOf(InterComponentInteraction))
-			->select( m | m.oclAsType(InterComponentInteraction).context <> null)
-			->select( m | m.oclAsType(InterComponentInteraction).target <> null) <> null;
-							}
-							class ManagedSystem
-							{
-								attribute name : String[?];
-								attribute attributes : String[*|1] { ordered };
-							}
-							abstract class MapeComponent;
-							class Monitor extends MapeComponent;
-							class Analyze extends MapeComponent;
-							class Plan extends MapeComponent;
-							class Execute extends MapeComponent;
-							class Knowledge extends MapeComponent;
-							abstract class Interaction extends Element
-							{
-								property context : MapeComponent[1];
-								property target : MapeComponent[1];
-								attribute targetAndContextNotNull : Boolean[1] { derived readonly transient volatile }
-								{
-									initial: self.context <> null and self.target <> null;
-									}
-								}
-								abstract class DecentralizedControlPattern
-								{
-									property elements : Element[*|1] { ordered composes };
-								}
-								class IntraComponentInteraction extends Interaction
-								{
+								boh<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>DecentralizedControlPattern<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>elements
+			<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> m <span style='color:#808030; '>|</span> m<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span>
+			<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> m <span style='color:#808030; '>|</span> m<span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>context <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span>
+			<span style='color:#808030; '>-</span><span style='color:#808030; '>></span>select<span style='color:#808030; '>(</span> m <span style='color:#808030; '>|</span> m<span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>InterComponentInteraction<span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>target <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#808030; '>)</span> <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+							<span style='color:#800080; '>}</span>
+							<span style='color:#800000; font-weight:bold; '>class</span> ManagedSystem
+							<span style='color:#800080; '>{</span>
+								attribute name <span style='color:#808030; '>:</span> <span style='color:#bb7977; font-weight:bold; '>String</span><span style='color:#808030; '>[</span><span style='color:#808030; '>?</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+								attribute attributes <span style='color:#808030; '>:</span> <span style='color:#bb7977; font-weight:bold; '>String</span><span style='color:#808030; '>[</span><span style='color:#808030; '>*</span><span style='color:#808030; '>|</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> ordered <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+							<span style='color:#800080; '>}</span>
+							<span style='color:#800000; font-weight:bold; '>abstract</span> <span style='color:#800000; font-weight:bold; '>class</span> MapeComponent<span style='color:#800080; '>;</span>
+							<span style='color:#800000; font-weight:bold; '>class</span> Monitor <span style='color:#800000; font-weight:bold; '>extends</span> MapeComponent<span style='color:#800080; '>;</span>
+							<span style='color:#800000; font-weight:bold; '>class</span> Analyze <span style='color:#800000; font-weight:bold; '>extends</span> MapeComponent<span style='color:#800080; '>;</span>
+							<span style='color:#800000; font-weight:bold; '>class</span> Plan <span style='color:#800000; font-weight:bold; '>extends</span> MapeComponent<span style='color:#800080; '>;</span>
+							<span style='color:#800000; font-weight:bold; '>class</span> Execute <span style='color:#800000; font-weight:bold; '>extends</span> MapeComponent<span style='color:#800080; '>;</span>
+							<span style='color:#800000; font-weight:bold; '>class</span> Knowledge <span style='color:#800000; font-weight:bold; '>extends</span> MapeComponent<span style='color:#800080; '>;</span>
+							<span style='color:#800000; font-weight:bold; '>abstract</span> <span style='color:#800000; font-weight:bold; '>class</span> Interaction <span style='color:#800000; font-weight:bold; '>extends</span> Element
+							<span style='color:#800080; '>{</span>
+								property context <span style='color:#808030; '>:</span> MapeComponent<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+								property target <span style='color:#808030; '>:</span> MapeComponent<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span><span style='color:#800080; '>;</span>
+								attribute targetAndContextNotNull <span style='color:#808030; '>:</span> Boolean<span style='color:#808030; '>[</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> derived readonly <span style='color:#800000; font-weight:bold; '>transient</span> <span style='color:#800000; font-weight:bold; '>volatile</span> <span style='color:#800080; '>}</span>
+								<span style='color:#800080; '>{</span>
+									initial<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>context <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span> and self<span style='color:#808030; '>.</span>target <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> <span style='color:#800000; font-weight:bold; '>null</span><span style='color:#800080; '>;</span>
+									<span style='color:#800080; '>}</span>
+								<span style='color:#800080; '>}</span>
+								<span style='color:#800000; font-weight:bold; '>abstract</span> <span style='color:#800000; font-weight:bold; '>class</span> DecentralizedControlPattern
+								<span style='color:#800080; '>{</span>
+									property elements <span style='color:#808030; '>:</span> Element<span style='color:#808030; '>[</span><span style='color:#808030; '>*</span><span style='color:#808030; '>|</span><span style='color:#008c00; '>1</span><span style='color:#808030; '>]</span> <span style='color:#800080; '>{</span> ordered composes <span style='color:#800080; '>}</span><span style='color:#800080; '>;</span>
+								<span style='color:#800080; '>}</span>
+								<span style='color:#800000; font-weight:bold; '>class</span> IntraComponentInteraction <span style='color:#800000; font-weight:bold; '>extends</span> Interaction
+								<span style='color:#800080; '>{</span>
 									invariant
-									isIntraComponent: 
-		if(targetAndContextNotNull)
-			then self.target.oclContainer().oclAsType(ManagingSystem) = self.context.oclContainer().oclAsType(ManagingSystem)
-			else true
-			endif;
-								}
-								class InterComponentInteraction extends Interaction
-								{
+									isIntraComponent<span style='color:#808030; '>:</span> 
+		<span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>targetAndContextNotNull<span style='color:#808030; '>)</span>
+			then self<span style='color:#808030; '>.</span>target<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>ManagingSystem<span style='color:#808030; '>)</span> <span style='color:#808030; '>=</span> self<span style='color:#808030; '>.</span>context<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>ManagingSystem<span style='color:#808030; '>)</span>
+			<span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>true</span>
+			endif<span style='color:#800080; '>;</span>
+								<span style='color:#800080; '>}</span>
+								<span style='color:#800000; font-weight:bold; '>class</span> InterComponentInteraction <span style='color:#800000; font-weight:bold; '>extends</span> Interaction
+								<span style='color:#800080; '>{</span>
 									invariant
-									isInterComponent: 
-		if(targetAndContextNotNull)
-			then self.target.oclContainer().oclAsType(ManagingSystem) <> self.context.oclContainer().oclAsType(ManagingSystem)
-			else true
-			endif;
-								}
-								class ReadWriteInteraction extends Interaction
-								{
-									invariant targetIsKnowledge: self.target.oclIsKindOf(Knowledge);
-								}
-}
+									isInterComponent<span style='color:#808030; '>:</span> 
+		<span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span>targetAndContextNotNull<span style='color:#808030; '>)</span>
+			then self<span style='color:#808030; '>.</span>target<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>ManagingSystem<span style='color:#808030; '>)</span> <span style='color:#808030; '>&lt;</span><span style='color:#808030; '>></span> self<span style='color:#808030; '>.</span>context<span style='color:#808030; '>.</span>oclContainer<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>oclAsType<span style='color:#808030; '>(</span>ManagingSystem<span style='color:#808030; '>)</span>
+			<span style='color:#800000; font-weight:bold; '>else</span> <span style='color:#800000; font-weight:bold; '>true</span>
+			endif<span style='color:#800080; '>;</span>
+								<span style='color:#800080; '>}</span>
+								<span style='color:#800000; font-weight:bold; '>class</span> ReadWriteInteraction <span style='color:#800000; font-weight:bold; '>extends</span> Interaction
+								<span style='color:#800080; '>{</span>
+									invariant targetIsKnowledge<span style='color:#808030; '>:</span> self<span style='color:#808030; '>.</span>target<span style='color:#808030; '>.</span>oclIsKindOf<span style='color:#808030; '>(</span>Knowledge<span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+								<span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
 
 </code>
