@@ -1,6 +1,7 @@
 # OCL Rules
 
 <code>
+
 Package patternGenerator : patternGenerator = 'http://www.example.org/patternGenerator'
 {
 	package informationSharing : informationSharing = 'http://www.example.org/patternGenerator/informationSharing'
@@ -258,4 +259,5 @@ Package patternGenerator : patternGenerator = 'http://www.example.org/patternGen
 									invariant targetIsKnowledge: self.target.oclIsKindOf(Knowledge);
 								}
 }
+
 </code>
