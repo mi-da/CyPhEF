@@ -1,7 +1,7 @@
 # OCL Rules
 
-<xmp>
-ackage patternGenerator : patternGenerator = 'http://www.example.org/patternGenerator'
+<code>
+Package patternGenerator : patternGenerator = 'http://www.example.org/patternGenerator'
 {
 	package informationSharing : informationSharing = 'http://www.example.org/patternGenerator/informationSharing'
 	{
@@ -258,4 +258,4 @@ ackage patternGenerator : patternGenerator = 'http://www.example.org/patternGene
 									invariant targetIsKnowledge: self.target.oclIsKindOf(Knowledge);
 								}
 }
-</xmp>
+</code>
