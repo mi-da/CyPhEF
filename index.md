@@ -1,3 +1,5 @@
+<title>CYPHEF</title>
+
 # Why CYPHEF?
 Self-adaptation is nowadays recognized as an effective
 approach to manage the complexity and dynamics inherent
