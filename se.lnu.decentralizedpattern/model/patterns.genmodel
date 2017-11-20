@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/se.lnu.decentralizedPattern/src" modelPluginID="se.lnu.decentralizedPattern"
+    modelName="Patterns" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>patterns.ecore</foreignModel>
+  <genPackages prefix="PatternGenerator" disposableProviderFactory="true" ecorePackage="patterns.ecore#/">
+    <genClasses image="false" ecoreClass="patterns.ecore#//Element"/>
+    <genClasses image="false" ecoreClass="patterns.ecore#//ManagingSystem">
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//ManagingSystem/hasInterComponentInteractions"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//ManagingSystem/hasIntraComponentInteractions"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference patterns.ecore#//ManagingSystem/getAllInterComponentInteractions"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//ManagingSystem/hasMyTargetInterComponentInteractions"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference patterns.ecore#//ManagingSystem/getMyTargetInterComponentInteractions"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//ManagingSystem/hasMyContextInterComponentInteractions"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference patterns.ecore#//ManagingSystem/getMyContextInterComponentInteractions"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference patterns.ecore#//ManagingSystem/getAllIntraComponentInteractions"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//ManagingSystem/hasMyIntraComponentInteractions"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference patterns.ecore#//ManagingSystem/getAllMyIntraComponentInteractions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference patterns.ecore#//ManagingSystem/analyze"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference patterns.ecore#//ManagingSystem/plan"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference patterns.ecore#//ManagingSystem/execute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//ManagingSystem/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference patterns.ecore#//ManagingSystem/knowledge"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference patterns.ecore#//ManagingSystem/monitor"/>
+    </genClasses>
+    <genClasses ecoreClass="patterns.ecore#//ManagedSystem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//ManagedSystem/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//ManagedSystem/attributes"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="patterns.ecore#//MapeComponent"/>
+    <genClasses ecoreClass="patterns.ecore#//Monitor">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference patterns.ecore#//Monitor/check"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//Monitor/hasOneManagedCheck"/>
+    </genClasses>
+    <genClasses ecoreClass="patterns.ecore#//Analyze"/>
+    <genClasses ecoreClass="patterns.ecore#//Plan"/>
+    <genClasses ecoreClass="patterns.ecore#//Execute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference patterns.ecore#//Execute/act"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//Execute/hasOneManagedAct"/>
+    </genClasses>
+    <genClasses ecoreClass="patterns.ecore#//Knowledge"/>
+    <genClasses image="false" ecoreClass="patterns.ecore#//Interaction">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference patterns.ecore#//Interaction/context"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference patterns.ecore#//Interaction/target"/>
+      <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//Interaction/targetAndContextNotNull"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="patterns.ecore#//DecentralizedControlPattern">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference patterns.ecore#//DecentralizedControlPattern/elements"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="patterns.ecore#//IntraComponentInteraction"/>
+    <genClasses ecoreClass="patterns.ecore#//InterComponentInteraction"/>
+    <genClasses ecoreClass="patterns.ecore#//ReadWriteInteraction"/>
+    <genClasses image="false" ecoreClass="patterns.ecore#//Subsystem"/>
+    <genClasses ecoreClass="patterns.ecore#//Delegation"/>
+    <genClasses ecoreClass="patterns.ecore#//Coordination">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference patterns.ecore#//Coordination/inverse"/>
+    </genClasses>
+    <nestedGenPackages prefix="DecentralizedPattern" basePackage="patternGenerator"
+        disposableProviderFactory="true" ecorePackage="patterns.ecore#//decentralizedPattern">
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="patterns.ecore#//decentralizedPattern/PatternType">
+        <genEnumLiterals ecoreEnumLiteral="patterns.ecore#//decentralizedPattern/PatternType/NoPattern"/>
+        <genEnumLiterals ecoreEnumLiteral="patterns.ecore#//decentralizedPattern/PatternType/InfoSharing"/>
+        <genEnumLiterals ecoreEnumLiteral="patterns.ecore#//decentralizedPattern/PatternType/CustomPattern"/>
+        <genEnumLiterals ecoreEnumLiteral="patterns.ecore#//decentralizedPattern/PatternType/CoordControl"/>
+        <genEnumLiterals ecoreEnumLiteral="patterns.ecore#//decentralizedPattern/PatternType/HierControl"/>
+        <genEnumLiterals ecoreEnumLiteral="patterns.ecore#//decentralizedPattern/PatternType/RegPlanning"/>
+        <genEnumLiterals ecoreEnumLiteral="patterns.ecore#//decentralizedPattern/PatternType/MasterSlave"/>
+      </genEnums>
+      <genClasses ecoreClass="patterns.ecore#//decentralizedPattern/Node"/>
+      <genClasses ecoreClass="patterns.ecore#//decentralizedPattern/Master"/>
+      <genClasses ecoreClass="patterns.ecore#//decentralizedPattern/Slave"/>
+      <genClasses ecoreClass="patterns.ecore#//decentralizedPattern/UnderlyingSubsystem">
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//decentralizedPattern/UnderlyingSubsystem/hasAssociatedTargetPlanner"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//decentralizedPattern/UnderlyingSubsystem/hasAssociatedContextPlanner"/>
+      </genClasses>
+      <genClasses ecoreClass="patterns.ecore#//decentralizedPattern/RegionalPlanner"/>
+      <genClasses image="false" ecoreClass="patterns.ecore#//decentralizedPattern/AbstractPeer"/>
+      <genClasses ecoreClass="patterns.ecore#//decentralizedPattern/Peer"/>
+      <genClasses ecoreClass="patterns.ecore#//decentralizedPattern/HPeer">
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//decentralizedPattern/HPeer/hasDirectManaged"/>
+      </genClasses>
+      <genClasses ecoreClass="patterns.ecore#//decentralizedPattern/ConcretePattern">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute patterns.ecore#//decentralizedPattern/ConcretePattern/type"/>
+      </genClasses>
+    </nestedGenPackages>
+  </genPackages>
+</genmodel:GenModel>

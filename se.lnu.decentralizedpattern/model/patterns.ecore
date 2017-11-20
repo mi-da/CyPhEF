@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="patternGenerator" nsURI="http://www.example.org/patternGenerator"
+    nsPrefix="patternGenerator">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ManagingSystem" abstract="true" eSuperTypes="#//Subsystem">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="hasAtLeastOneMapeKComponent"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="hasAtLeastOneMapeKComponent" value="self.monitor &lt;> null or self.analyze &lt;> null &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;or self.plan &lt;> null or self.execute &lt;> null or self.knowledge &lt;> null"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasInterComponentInteractions"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if (self.oclContainer().oclAsType(DecentralizedControlPattern).elements&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclIsKindOf(InterComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclAsType(Interaction).targetAndContextNotNull )->size()>0) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else false&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasIntraComponentInteractions"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if (self.oclContainer().oclAsType(DecentralizedControlPattern).elements&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclIsKindOf(IntraComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclAsType(Interaction).targetAndContextNotNull)->size()>0) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else false&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getAllInterComponentInteractions"
+        upperBound="-1" eType="#//InterComponentInteraction" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(hasInterComponentInteractions)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;self.oclContainer().oclAsType(DecentralizedControlPattern).elements&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclIsKindOf(InterComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclAsType(Interaction).targetAndContextNotNull)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->oclAsType(OrderedSet(InterComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else OrderedSet(InterComponentInteraction){}&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasMyTargetInterComponentInteractions"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(self.getAllInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;->select(targetAndContextNotNull and target.oclContainer() &lt;> null and target.oclContainer().oclIsKindOf(ManagingSystem))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclContainer().oclAsType(ManagingSystem) = self)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;->size()>0) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else false&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getMyTargetInterComponentInteractions"
+        upperBound="-1" eType="#//InterComponentInteraction" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(hasMyTargetInterComponentInteractions)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.getAllInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclContainer().oclAsType(ManagingSystem) = self)&#xA;&#x9;&#x9;&#x9;&#x9;else OrderedSet(InterComponentInteraction){}&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasMyContextInterComponentInteractions"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(self.getAllInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(targetAndContextNotNull and context.oclContainer() &lt;> null and context.oclContainer().oclIsKindOf(ManagingSystem))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclContainer().oclAsType(ManagingSystem) = self)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size()>0) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then true&#xA;&#x9;&#x9;&#x9;&#x9;else false&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getMyContextInterComponentInteractions"
+        upperBound="-1" eType="#//InterComponentInteraction" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(hasMyContextInterComponentInteractions)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.getAllInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclContainer().oclAsType(ManagingSystem) = self)&#xA;&#x9;&#x9;&#x9;&#x9;else OrderedSet(InterComponentInteraction){}&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getAllIntraComponentInteractions"
+        upperBound="-1" eType="#//IntraComponentInteraction" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(hasIntraComponentInteractions)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.oclContainer().oclAsType(DecentralizedControlPattern).elements&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select( m | m.oclIsKindOf(IntraComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclAsType(Interaction).targetAndContextNotNull) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->oclAsType(OrderedSet(IntraComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;else OrderedSet(IntraComponentInteraction){}&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasMyIntraComponentInteractions"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(getAllIntraComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;-> select(target.oclContainer().oclAsType(ManagingSystem) = self)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size()>0)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then true&#xA;&#x9;&#x9;&#x9;&#x9;else false&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="getAllMyIntraComponentInteractions"
+        upperBound="-1" eType="#//IntraComponentInteraction" changeable="false" volatile="true"
+        transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(hasMyIntraComponentInteractions)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then getAllIntraComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclContainer().oclAsType(ManagingSystem) = self)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->oclAsType(OrderedSet(IntraComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else OrderedSet(IntraComponentInteraction){}&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="analyze" eType="#//Analyze"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="plan" eType="#//Plan" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="execute" eType="#//Execute"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="knowledge" eType="#//Knowledge"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="monitor" eType="#//Monitor"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ManagedSystem" eSuperTypes="#//Subsystem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attributes" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MapeComponent" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Monitor" eSuperTypes="#//MapeComponent">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="check" upperBound="-1"
+        eType="#//Subsystem"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasOneManagedCheck" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;self.check?->size() = 1 and self.check->select(oclIsKindOf(ManagedSystem))->size() = 1"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Analyze" eSuperTypes="#//MapeComponent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Plan" eSuperTypes="#//MapeComponent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Execute" eSuperTypes="#//MapeComponent">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="act" upperBound="-1" eType="#//Subsystem"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasOneManagedAct" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;self.act?->size() = 1 and self.act->select(oclIsKindOf(ManagedSystem))->size() = 1"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Knowledge" eSuperTypes="#//MapeComponent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Interaction" abstract="true" eSuperTypes="#//Element">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="targetAndContextDifferent"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="targetAndContextDifferent" value="context &lt;> target"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="context" lowerBound="1"
+        eType="#//MapeComponent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//MapeComponent"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetAndContextNotNull"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        changeable="false" volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="context &lt;> null and target &lt;> null"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DecentralizedControlPattern" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//Element" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IntraComponentInteraction" abstract="true"
+      eSuperTypes="#//Interaction">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="isIntraComponent"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="isIntraComponent" value="context?->oclType() = target?->oclType()"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InterComponentInteraction" eSuperTypes="#//Interaction">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="isInterComponent"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="isInterComponent" value="context?->oclType() &lt;> target?->oclType()"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReadWriteInteraction" eSuperTypes="#//Interaction">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="targetIsKnowledge"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="targetIsKnowledge" value="target &lt;> null and target.oclIsKindOf(Knowledge)"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Subsystem" abstract="true" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Delegation" eSuperTypes="#//IntraComponentInteraction"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Coordination" eSuperTypes="#//IntraComponentInteraction">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="hasExactlyOneInverse isInverse"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+      <details key="hasExactlyOneInverse" value="self.oclContainer().oclAsType(DecentralizedControlPattern).elements&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select( oclIsKindOf(Coordination))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclAsType(Coordination).target = self.context &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and oclAsType(Coordination).context = self.target) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size()=1"/>
+      <details key="isInverse" value="inverse.target = self.context and inverse.context = self.target"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inverse" lowerBound="1"
+        eType="#//Coordination"/>
+  </eClassifiers>
+  <eSubpackages name="decentralizedPattern" nsURI="http://www.example.org/patternGenerator/decentralizedPattern"
+      nsPrefix="decentralizedPattern">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    </eAnnotations>
+    <eClassifiers xsi:type="ecore:EClass" name="Node" eSuperTypes="#//ManagingSystem"/>
+    <eClassifiers xsi:type="ecore:EClass" name="Master" eSuperTypes="#//ManagingSystem">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="hasNOMonitor hasAnalyze hasPlan hasNOExecute analyzeSpeaksWithPlan"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="hasNOMonitor" value="self.monitor = null"/>
+        <details key="hasAnalyze" value="self.analyze &lt;> null"/>
+        <details key="hasPlan" value="self.plan &lt;> null"/>
+        <details key="hasNOExecute" value="self.execute = null"/>
+        <details key="analyzeSpeaksWithPlan" value="getMyContextInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Analyze))&#xA;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Plan))->size()=1"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Slave" eSuperTypes="#//ManagingSystem">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="hasMonitor hasNOAnalyze hasNOPlan hasExecute checkONEManaged actONEManaged checkAndAct slaveMonitorSpeaksWithMasterAnalyze masterPlanSpeaksWithSlaveExecute"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="hasMonitor" value="self.monitor &lt;> null"/>
+        <details key="hasNOAnalyze" value="self.analyze = null"/>
+        <details key="hasNOPlan" value="self.plan = null"/>
+        <details key="hasExecute" value="self.execute &lt;> null"/>
+        <details key="checkONEManaged" value="self.monitor?.hasOneManagedCheck"/>
+        <details key="actONEManaged" value="self.execute?.hasOneManagedAct"/>
+        <details key="checkAndAct" value="self.monitor.hasOneManagedCheck and self.execute.hasOneManagedAct &#xA;&#x9;&#x9;&#x9;&#x9;and self.monitor.check = self.execute.act"/>
+        <details key="slaveMonitorSpeaksWithMasterAnalyze" value="getMyContextInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Monitor))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Analyze))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size()=1"/>
+        <details key="masterPlanSpeaksWithSlaveExecute" value="getMyTargetInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Plan))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Execute))->size()=1"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="UnderlyingSubsystem" eSuperTypes="#//ManagingSystem">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="hasMonitor hasAnalyze hasNoPlan hasExecute checkONEManaged actONEManaged checkAndAct monitorSpeaksWithAnalyze analyzeSpeaksWithPlan planSpeaksWithExecute maxInterInteractionAllowed hasOneOnlyAssociatedPlanner"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="hasMonitor" value="self.monitor &lt;> null"/>
+        <details key="hasAnalyze" value="self.analyze &lt;> null"/>
+        <details key="hasNoPlan" value="self.plan = null"/>
+        <details key="hasExecute" value="self.execute &lt;> null"/>
+        <details key="checkONEManaged" value="self.monitor.hasOneManagedCheck"/>
+        <details key="actONEManaged" value="self.execute.hasOneManagedAct"/>
+        <details key="checkAndAct" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;if(self.monitor.hasOneManagedCheck and self.execute.hasOneManagedAct)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;then self.monitor.check->any(oclIsKindOf(ManagedSystem)) = self.execute.act->any(oclIsKindOf(ManagedSystem))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;else false&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="monitorSpeaksWithAnalyze" value="getMyContextInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Monitor))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Analyze))->size() = 1"/>
+        <details key="analyzeSpeaksWithPlan" value="getMyContextInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Analyze))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Plan))->size() = 1"/>
+        <details key="planSpeaksWithExecute" value="getMyTargetInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Plan))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Execute))->size() = 1"/>
+        <details key="maxInterInteractionAllowed" value="getMyContextInterComponentInteractions->size() &lt;= 2 &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and getMyTargetInterComponentInteractions->size()&lt;=2"/>
+        <details key="hasOneOnlyAssociatedPlanner" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if(hasAssociatedContextPlanner and hasAssociatedTargetPlanner)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;then self.getMyContextInterComponentInteractions->any(target.oclIsKindOf(Plan)).target.oclContainer().oclAsType(RegionalPlanner) = &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;self.getMyTargetInterComponentInteractions->any(context.oclIsKindOf(Plan)).context.oclContainer().oclAsType(RegionalPlanner)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasAssociatedTargetPlanner"
+          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          changeable="false" volatile="true" transient="true" derived="true">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+          <details key="derivation" value="self.getMyContextInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; ->select(targetAndContextNotNull)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; ->select(target.oclIsKindOf(Plan))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; ->select(target.oclContainer() &lt;> null and target.oclContainer.oclIsKindOf(RegionalPlanner))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; ->size()>0"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasAssociatedContextPlanner"
+          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          changeable="false" volatile="true" transient="true" derived="true">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+          <details key="derivation" value="self.getMyTargetInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; ->select(targetAndContextNotNull)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; ->select(context.oclIsKindOf(Plan))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; ->select(context.oclContainer() &lt;> null and context.oclContainer.oclIsKindOf(RegionalPlanner))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9; ->size()>0"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="RegionalPlanner" eSuperTypes="#//ManagingSystem">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="hasNoMonitor hasNoAnalyze hasPlan hasNoExecute"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="hasNoMonitor" value="self.monitor = null"/>
+        <details key="hasNoAnalyze" value="self.analyze = null"/>
+        <details key="hasPlan" value="self.plan &lt;> null"/>
+        <details key="hasNoExecute" value="self.execute = null"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AbstractPeer" abstract="true" eSuperTypes="#//ManagingSystem">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="hasMonitor hasAnalyze hasPlan hasExecute monitorSpeaksWithAnalyze analyzeSpeaksWithPlan planSpeaksWithExecute maxInterInteractionAllowed"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="hasMonitor" value="self.monitor &lt;> null"/>
+        <details key="hasAnalyze" value="self.analyze &lt;> null"/>
+        <details key="hasPlan" value="self.plan &lt;> null"/>
+        <details key="hasExecute" value="self.execute &lt;> null"/>
+        <details key="monitorSpeaksWithAnalyze" value="getMyContextInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Monitor))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Analyze))->size() = 1"/>
+        <details key="analyzeSpeaksWithPlan" value="getMyContextInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Analyze))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Plan))->size() = 1"/>
+        <details key="planSpeaksWithExecute" value="getMyContextInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Plan))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Execute))->size() = 1"/>
+        <details key="maxInterInteractionAllowed" value="getMyContextInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size() &lt;= 3"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Peer" eSuperTypes="#//decentralizedPattern/AbstractPeer">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="checkAndAct slaveMonitorSpeaksWithMasterAnalyze masterPlanSpeaksWithSlaveExecute"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="checkAndAct" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;if(self.monitor.hasOneManagedCheck and self.execute.hasOneManagedAct)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;then self.monitor.check->any(oclIsKindOf(ManagedSystem)) = self.execute.act->any(oclIsKindOf(ManagedSystem))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;else false&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="slaveMonitorSpeaksWithMasterAnalyze" value="getMyContextInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Monitor))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Analyze))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size()=1"/>
+        <details key="masterPlanSpeaksWithSlaveExecute" value="getMyTargetInterComponentInteractions&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(context.oclIsKindOf(Plan))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(target.oclIsKindOf(Execute))->size()=1"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="HPeer" eSuperTypes="#//decentralizedPattern/AbstractPeer">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="hasManaged"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="hasManaged" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;if(hasDirectManaged) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;then true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;else self.monitor?.check->size() > 0 and self.monitor?.check = self.execute?.act&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasDirectManaged" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          changeable="false" volatile="true" transient="true" derived="true">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+          <details key="derivation" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;monitor?.hasOneManagedCheck and execute?.hasOneManagedAct &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and monitor.check = execute.act"/>
+        </eAnnotations>
+      </eStructuralFeatures>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="PatternType">
+      <eLiterals name="NoPattern"/>
+      <eLiterals name="InfoSharing" value="1"/>
+      <eLiterals name="CustomPattern" value="2"/>
+      <eLiterals name="CoordControl" value="3"/>
+      <eLiterals name="HierControl" value="4"/>
+      <eLiterals name="RegPlanning" value="5"/>
+      <eLiterals name="MasterSlave" value="6"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ConcretePattern" eSuperTypes="#//DecentralizedControlPattern">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="noPatternSelected atLeastOnePeer peersMonitorSpeakOnlyEachOther presenceOfNotAllowedElements atLeastOneUnderlyingSubsystem atLeastOneRegionalPlanner intraComponentInteractionIsPCoord intraComponentInteractionIsMCoord NoIntraComponentInteraction intraComponentInteractionIsCoord presenceOfNotAllowedElementsInRegionalPlanningPattern exactlyOneMaster atLeastOneSlave maxMasterSlavePatternInteractionAllowed atLeastOneNode presenceOfNotAllowedElementsInMasterSlavePattern"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="noPatternSelected" value="if(type = PatternType::NoPattern) then false else true endif"/>
+        <details key="atLeastOnePeer" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::InfoSharing or type = PatternType::CoordControl)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(Peer))->size()>0&#xA;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="peersMonitorSpeakOnlyEachOther" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::InfoSharing) then&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;self.elements->select(oclIsKindOf(IntraComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclAsType(Interaction).targetAndContextNotNull)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select( not (oclAsType(Interaction).context.oclIsKindOf(Monitor)&#xA;&#x9;&#x9;&#x9;&#x9; &#x9;&#x9;&#x9;&#x9;&#x9;and oclAsType(Interaction).target.oclIsKindOf(Monitor)))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size() = 0&#xA;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="presenceOfNotAllowedElements" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::InfoSharing or type = PatternType::CoordControl) then&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;self.elements->select(oclIsKindOf(ManagingSystem))->reject(oclIsKindOf(Peer))->size() = 0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="atLeastOneUnderlyingSubsystem" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::RegPlanning)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(UnderlyingSubsystem))->size()>0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="atLeastOneRegionalPlanner" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::RegPlanning)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(UnderlyingSubsystem))->size()>0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="intraComponentInteractionIsPCoord" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::RegPlanning)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(IntraComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclAsType(Interaction).targetAndContextNotNull)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select( not oclIsKindOf(Coordination) or not oclAsType(Interaction).context.oclIsKindOf(Plan)&#xA;&#x9;&#x9; &#x9;&#x9;&#x9;&#x9;&#x9;or not oclAsType(Interaction).target.oclIsKindOf(Plan))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size() = 0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="intraComponentInteractionIsMCoord" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::InfoSharing)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(IntraComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclAsType(Interaction).targetAndContextNotNull)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select( not oclIsKindOf(Coordination) or not oclAsType(Interaction).context.oclIsKindOf(Monitor)&#xA;&#x9;&#x9; &#x9;&#x9;&#x9;&#x9;&#x9;or not oclAsType(Interaction).target.oclIsKindOf(Monitor))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size() = 0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="NoIntraComponentInteraction" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::HierControl)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(IntraComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size() = 0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="intraComponentInteractionIsCoord" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::CoordControl)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(IntraComponentInteraction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclAsType(Interaction).targetAndContextNotNull)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->select(oclIsKindOf(Delegation))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size() = 0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="presenceOfNotAllowedElementsInRegionalPlanningPattern" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::RegPlanning)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(ManagingSystem))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->reject(oclIsKindOf(RegionalPlanner))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->reject(oclIsKindOf(UnderlyingSubsystem))->size() = 0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="exactlyOneMaster" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::MasterSlave) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(Master))->size() = 1&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="atLeastOneSlave" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::MasterSlave) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(Slave))->size() >= 1&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="maxMasterSlavePatternInteractionAllowed" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::MasterSlave) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(Interaction))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->size() &lt;= 2*(self.elements->select(oclIsKindOf(Slave))->size()) + 1&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="atLeastOneNode" value="&#xA;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::CustomPattern) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(ManagingSystem))->size()>0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+        <details key="presenceOfNotAllowedElementsInMasterSlavePattern" value="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;if(type = PatternType::MasterSlave)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;then self.elements->select(oclIsKindOf(ManagingSystem))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->reject(oclIsKindOf(Master))&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;->reject(oclIsKindOf(Slave))->size() = 0&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else true&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;endif"/>
+      </eAnnotations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1"
+          eType="#//decentralizedPattern/PatternType"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>
