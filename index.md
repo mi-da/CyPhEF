@@ -18,8 +18,6 @@ MAPE-K components as first-class modeling abstractions and
 provide a framework supporting the design, development, and
 validation of decentralized self-adaptive cyber-physical systems.
 
-<iframe  width="425" height="344" src="https://www.youtube.com/embed/F9Bo89m2f6g" frameborder="0" allowfullscreen></iframe>
-
 # OCL Rules
 <pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>package</span> patternGenerator : patternGenerator = <span style='color:#2a00ff; '>'http://www.example.org/patternGenerator'</span>
 <span style='color:#000000; '>{</span>
