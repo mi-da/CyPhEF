@@ -1,4 +1,8 @@
-# Why CYPHEF?
+
+# What is CyPhEF?
+CyPhEF is a Model-Driven Engineering framework supporting the development and validation of self-adaptive cyber-physical systems. CyPhEF is implemented as an Eclipse plugin, and is based on the Eclipse Modeling Framework and the Graphical Modeling Project.
+
+# Why CyPhEF?
 Self-adaptation is nowadays recognized as an effective
 approach to manage the complexity and dynamics inherent
 to cyber-physical systems, which are composed of deeply intertwined
@@ -18,10 +22,13 @@ MAPE-K components as first-class modeling abstractions and
 provide a framework supporting the design, development, and
 validation of decentralized self-adaptive cyber-physical systems.
 
+# Introduction
+
 [![CyPhEF Introduction](https://image.ibb.co/eoOkXm/12.png)](https://www.youtube.com/watch?v=dx0MUcV9nJI "CyPhEF Introduction")
 
-[![CyPhEF Tutorial](https://image.ibb.co/ee0FXm/12.png)](https://www.youtube.com/watch?v=1RDx5Ehx2iA "CyPhEF Introduction")
+# Tutorial
 
+[![CyPhEF Tutorial](https://image.ibb.co/ee0FXm/12.png)](https://www.youtube.com/watch?v=1RDx5Ehx2iA "CyPhEF Introduction")
 
 
 # OCL Rules
