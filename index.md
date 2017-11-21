@@ -18,7 +18,7 @@ MAPE-K components as first-class modeling abstractions and
 provide a framework supporting the design, development, and
 validation of decentralized self-adaptive cyber-physical systems.
 
-[![CyPhEF Introduction](https://ibb.co/dHWuQ6)](https://www.youtube.com/watch?v=dx0MUcV9nJI "CyPhEF Introduction")
+[![CyPhEF Introduction](https://image.ibb.co/eoOkXm/12.png)](https://www.youtube.com/watch?v=dx0MUcV9nJI "CyPhEF Introduction")
 
 
 # OCL Rules
