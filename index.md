@@ -22,6 +22,7 @@ provide a framework supporting the design, development, and
 validation of decentralized self-adaptive cyber-physical systems.
 
 # Video
+Our youtube channel contains videos which allows you to start using our tool!
 
 ## Introduction
 
