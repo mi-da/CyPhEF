@@ -1,5 +1,4 @@
-
-# What is CyPhEF?
+[create an anchor](#anchors-in-markdown)
 CyPhEF is a Model-Driven Engineering framework supporting the development and validation of self-adaptive cyber-physical systems. CyPhEF is implemented as an Eclipse plugin, and is based on the Eclipse Modeling Framework and the Graphical Modeling Project.
 
 # Why CyPhEF?
