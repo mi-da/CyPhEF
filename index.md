@@ -1,4 +1,4 @@
-[create an anchor](#anchors-in-markdown)
+# What is CyPhEF?
 CyPhEF is a Model-Driven Engineering framework supporting the development and validation of self-adaptive cyber-physical systems. CyPhEF is implemented as an Eclipse plugin, and is based on the Eclipse Modeling Framework and the Graphical Modeling Project.
 
 # Why CyPhEF?
@@ -38,9 +38,7 @@ declarative language for describing rules applying to UML models. In the followi
 
 ## OCL Rules
 
-
-
-<pre style='color:#000000;background:#ffffff;'><span style="display:block; background-color:red; width:100px;"></span> patternGenerator : patternGenerator = <span style='color:#2a00ff; '>'http://www.example.org/patternGenerator'</span>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>package</span> patternGenerator : patternGenerator = <span style='color:#2a00ff; '>'http://www.example.org/patternGenerator'</span>
 <span style='color:#000000; '>{</span>
 <span style='color:#000000; '>	<span style='color:#7f0055; font-weight:bold; '>package</span> informationSharing : </span>
 <span style='color:#000000; '>		informationSharing = '</span><span style='color:#3f3fbf; '>http://www.example.org/patternGenerator/informationSharing</span><span style='color:#000000; '>'</span>
@@ -111,23 +109,23 @@ declarative language for describing rules applying to UML models. In the followi
 			<span style='color:#7f0055; font-weight:bold; '>invariant</span> hasExecute: <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.execute &lt;> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>null</span></span>;
 			<span style='color:#7f0055; font-weight:bold; '>invariant</span> hasManagedSystem: <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.managed &lt;> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>null</span></span>;
 			
-			<span style='color:#7f0055; font-weight:bold; '>invariant</span> monitorSpeaksWithAnalyze: getMyContextInterComponentInteractions
+<span style='color:#7f0055; font-weight:bold; '>invariant</span> monitorSpeaksWithAnalyze: getMyContextInterComponentInteractions
 					->select(context.oclIsKindOf(Monitor))
 					->select(target.oclIsKindOf(Analyze))->size() = 1;
 			
-			<span style='color:#7f0055; font-weight:bold; '>invariant</span> analyzeSpeaksWithPlan: getMyContextInterComponentInteractions
+<span style='color:#7f0055; font-weight:bold; '>invariant</span> analyzeSpeaksWithPlan: getMyContextInterComponentInteractions
 					->select(context.oclIsKindOf(Analyze))
 					->select(target.oclIsKindOf(Plan))->size() = 1;
 
-			<span style='color:#7f0055; font-weight:bold; '>invariant</span> planSpeaksWithExecute: getMyTargetInterComponentInteractions
+<span style='color:#7f0055; font-weight:bold; '>invariant</span> planSpeaksWithExecute: getMyTargetInterComponentInteractions
 					->select(context.oclIsKindOf(Plan))
 					->select(target.oclIsKindOf(Execute))->size() = 1;
 
-			<span style='color:#7f0055; font-weight:bold; '>invariant</span> maxInterInteractionAllowed: 
+<span style='color:#7f0055; font-weight:bold; '>invariant</span> maxInterInteractionAllowed: 
 				getMyContextInterComponentInteractions->size() &lt;= 2 
 					<span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>and</span></span> getMyTargetInterComponentInteractions->size()&lt;=2;
 
-			<span style='color:#7f0055; font-weight:bold; '>invariant</span> hasOneOnlyAssociatedPlanner: 
+<span style='color:#7f0055; font-weight:bold; '>invariant</span> hasOneOnlyAssociatedPlanner: 
 				<span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>if</span></span>(hasAssociatedContextPlanner <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>and</span></span> hasAssociatedTargetPlanner)
 					<span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>then</span></span> getMyContextInterComponentInteractions
 						->any(target.oclIsKindOf(Plan)).target.oclContainer()
@@ -174,12 +172,11 @@ declarative language for describing rules applying to UML models. In the followi
 			<span style='color:#7f0055; font-weight:bold; '>invariant</span> exactlyOneMaster: <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.elements
 				->select(oclIsKindOf(Master))
 				->size() = 1;
-
-			<span style='color:#7f0055; font-weight:bold; '>invariant</span> atLeastOneSlave: <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.elements
+<span style='color:#7f0055; font-weight:bold; '>invariant</span> atLeastOneSlave: <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.elements
 				->select(oclIsKindOf(Slave))
 				->size() >= 1;
 
-			<span style='color:#7f0055; font-weight:bold; '>invariant</span> maxInteractionAllowed: <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.elements
+<span style='color:#7f0055; font-weight:bold; '>invariant</span> maxInteractionAllowed: <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.elements
 				->select(oclIsKindOf(Interaction))
 				->size() &lt;= 2*slaveNumber + 1;
 		}
@@ -345,7 +342,7 @@ declarative language for describing rules applying to UML models. In the followi
 		<span style='color:#7f0055; font-weight:bold; '>property</span> monitor : Monitor[?] <span style='color:#000000; '>{ <span style='color:#7f0055; font-weight:bold; '>composes</span> }</span>;
 		<span style='color:#7f0055; font-weight:bold; '>property</span> managed : ManagedSystem[?];
 
-		<span style='color:#7f0055; font-weight:bold; '>invariant</span> hasAtLeastOneMapeKComponent: <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.monitor &lt;> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>null</span></span> <span style='color:#7f0055; font-weight:bold; '>or</span> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.analyze &lt;> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>null</span></span> 
+<span style='color:#7f0055; font-weight:bold; '>invariant</span> hasAtLeastOneMapeKComponent: <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.monitor &lt;> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>null</span></span> <span style='color:#7f0055; font-weight:bold; '>or</span> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.analyze &lt;> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>null</span></span> 
 				<span style='color:#7f0055; font-weight:bold; '>or</span> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.plan &lt;> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>null</span></span> <span style='color:#7f0055; font-weight:bold; '>or</span> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.execute &lt;> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>null</span></span> <span style='color:#7f0055; font-weight:bold; '>or</span> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>self</span></span>.knowledge &lt;> <span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>null</span></span>;
 	}
 	<span style='color:#7f0055; font-weight:bold; '><span style='color:#7f0055; font-weight:bold; '>class</span></span> ManagedSystem <span style='color:#7f0055; font-weight:bold; '>class</span> Subsystem
