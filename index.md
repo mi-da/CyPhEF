@@ -22,17 +22,22 @@ MAPE-K components as first-class modeling abstractions and
 provide a framework supporting the design, development, and
 validation of decentralized self-adaptive cyber-physical systems.
 
-# Introduction
+# Video
+
+## Introduction
 
 [![CyPhEF Introduction](https://image.ibb.co/eoOkXm/12.png)](https://www.youtube.com/watch?v=dx0MUcV9nJI "CyPhEF Introduction")
 
-# Tutorial
+## Tutorial
 
 [![CyPhEF Tutorial](https://image.ibb.co/ee0FXm/12.png)](https://www.youtube.com/watch?v=1RDx5Ehx2iA "CyPhEF Introduction")
 
 
-# OCL Rules
-These are the OCL rules.
+# Formal Specification
+Constraints on the metamodel and on the provided control patterns are defined in Object Constraint Language (OCL), a
+declarative language for describing rules applying to UML models. In the following text you can find the whole formal specification
+
+## OCL Rules
 
 <pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>package</span> patternGenerator : patternGenerator = <span style='color:#2a00ff; '>'http://www.example.org/patternGenerator'</span>
 <span style='color:#000000; '>{</span>
