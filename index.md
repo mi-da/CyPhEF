@@ -32,6 +32,7 @@ validation of decentralized self-adaptive cyber-physical systems.
 
 
 # OCL Rules
+These are the OCL rules.
 
 <pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>package</span> patternGenerator : patternGenerator = <span style='color:#2a00ff; '>'http://www.example.org/patternGenerator'</span>
 <span style='color:#000000; '>{</span>
