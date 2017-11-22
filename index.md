@@ -39,7 +39,9 @@ declarative language for describing rules applying to UML models. In the followi
 
 ## OCL Rules
 
-<pre style='color:#000000;background:#ffffff;'><span style='color:#7f0055; font-weight:bold; '>package</span> patternGenerator : patternGenerator = <span style='color:#2a00ff; '>'http://www.example.org/patternGenerator'</span>
+
+
+<pre style='color:#000000;background:#ffffff;'><span style="display:block; background-color:red; width:100px;"></span> patternGenerator : patternGenerator = <span style='color:#2a00ff; '>'http://www.example.org/patternGenerator'</span>
 <span style='color:#000000; '>{</span>
 <span style='color:#000000; '>	<span style='color:#7f0055; font-weight:bold; '>package</span> informationSharing : </span>
 <span style='color:#000000; '>		informationSharing = '</span><span style='color:#3f3fbf; '>http://www.example.org/patternGenerator/informationSharing</span><span style='color:#000000; '>'</span>
