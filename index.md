@@ -30,7 +30,7 @@ Our youtube channel contains videos which allows you to start using our tool!
 
 ## Tutorial
 
-[![CyPhEF Tutorial](https://image.ibb.co/ee0FXm/12.png)](https://www.youtube.com/watch?v=1RDx5Ehx2iA "CyPhEF Introduction")
+[![CyPhEF Tutorial](https://image.ibb.co/ee0FXm/12.png)](https://www.youtube.com/watch?v=nmg-w2kfKEA&t=176s "CyPhEF Tutorial")
 
 
 # Formal Specification
