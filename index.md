@@ -35,7 +35,7 @@ Our youtube channel contains videos which allows you to start using our tool!
 
 # Formal Specification
 Constraints on the metamodel and on the provided control patterns are defined in Object Constraint Language (OCL), a
-declarative language for describing rules applying to UML models. In the following text you can find the whole formal specification
+declarative language for describing rules applying to UML models.
 
 ## OCL Rules
 You can find the full specification of the OCL rules at the following [link](
