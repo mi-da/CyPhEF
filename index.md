@@ -51,4 +51,4 @@ https://drive.google.com/file/d/1ZSJfTBcUDlBQpFoZRA0HqIF8RcusyWwj/view?usp=shari
 
 # Publications
 
-⋅⋅* Mirko, D., Mauro, C., & Annalisa, N. (2017). Model-driven Engineering of Decentralized Control in Cyber-Physical Systems. https://doi.org/10.1109/FAS-W.2017.113
+* Mirko, D., Mauro, C., & Annalisa, N. (2017). Model-driven Engineering of Decentralized Control in Cyber-Physical Systems. https://doi.org/10.1109/FAS-W.2017.113
