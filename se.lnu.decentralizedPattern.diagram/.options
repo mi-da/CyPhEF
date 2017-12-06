@@ -1,0 +1,7 @@
+# Tracing options for the se.lnu.decentralizedPattern.diagram plug-in
+
+# Common issues
+se.lnu.decentralizedPattern.diagram/debug=false
+
+# Visual IDs
+se.lnu.decentralizedPattern.diagram/debug/visualID=false
