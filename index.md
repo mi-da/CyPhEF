@@ -25,7 +25,9 @@ validation of decentralized self-adaptive cyber-physical systems.
 We are working hard to realease the first version of CyPhEF Eclipse Plugin. At the moment, if you want to use CyPhEF, you must import the tool and use it as a developer. The installation procedure is not straight as the installation of an Eclipse Plugin, but it not hard. Follow these steps:
 
 1. Download the sources of the tool from the top of this page (tar.gz or .zip)
-2. bla bla
+2. Extract the files in a desired location
+3. Import the three projects "needed" as Eclipse Plugin projects
+4. In the runtime workspace import the project "runtime"
 
 # Video
 Our youtube channel contains videos which allows you to start using our tool!
