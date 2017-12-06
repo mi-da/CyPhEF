@@ -33,9 +33,10 @@ We are working hard to realease the first version of CyPhEF Eclipse Plugin. At t
    * se.lnu.decentralizedPattern
    * se.lnu.decentralizedPattern.diagram
    * se.lnu.decentralizedPattern.edit
-5. In the runtime workspace created after launching the environment import as an existing project
+5. In the runtime workspace created after launching the environment import the following project
    * CyPhEF
-6. 
+6. Inside the imported project you can already find the cyberModel and the physicalModel of the video example
+7. You can test your installation by running the Simulate class
 
 # Video
 Our youtube channel contains videos which allows you to start using our tool!
