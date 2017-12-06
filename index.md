@@ -24,14 +24,18 @@ validation of decentralized self-adaptive cyber-physical systems.
 # Installation Instructions
 We are working hard to realease the first version of CyPhEF Eclipse Plugin. At the moment, if you want to use CyPhEF, you must import the tool and use it as a developer. The installation procedure is not straight as the installation of an Eclipse Plugin, but it is not hard. Follow these steps:
 
-1. Download the sources of the tool from the top of this page (tar.gz or .zip)
-2. Extract the files in a desired location
-3. Import the following projects as existing projects into the workspace
+1. Before downloading the tool install the following software inside Eclipse (Help -> Install new Software)
+   * Eclipse Modeling Framework (EMF)
+   * Graphical Modeling Project (GMP)
+2. Download the sources of the tool from the top of this page (tar.gz or .zip)
+3. Extract the files in a desired location
+4. Import the following projects as existing projects into the workspace
    * se.lnu.decentralizedPattern
    * se.lnu.decentralizedPattern.diagram
    * se.lnu.decentralizedPattern.edit
-4. In the runtime workspace created after launching the environment import as an existing project
-   * se.lnu.decentralizedPattern
+5. In the runtime workspace created after launching the environment import as an existing project
+   * CyPhEF
+6. 
 
 # Video
 Our youtube channel contains videos which allows you to start using our tool!
