@@ -30,7 +30,8 @@ We are working hard to realease the first version of CyPhEF Eclipse Plugin. At t
    * se.lnu.decentralizedPattern
    * se.lnu.decentralizedPattern.diagram
    * se.lnu.decentralizedPattern.edit
-4. In the runtime workspace import the project "runtime"
+4. In the runtime workspace created after launching the environment import as an existing project
+   * se.lnu.decentralizedPattern
 
 # Video
 Our youtube channel contains videos which allows you to start using our tool!
