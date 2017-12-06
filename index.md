@@ -27,9 +27,9 @@ We are working hard to realease the first version of CyPhEF Eclipse Plugin. At t
 1. Download the sources of the tool from the top of this page (tar.gz or .zip)
 2. Extract the files in a desired location
 3. Import the following projects as existing projects into the workspace
-  * se.lnu.decentralizedPattern
-  * se.lnu.decentralizedPattern.diagram
-  * se.lnu.decentralizedPattern.edit
+   * se.lnu.decentralizedPattern
+   * se.lnu.decentralizedPattern.diagram
+   * se.lnu.decentralizedPattern.edit
 4. In the runtime workspace import the project "runtime"
 
 # Video
