@@ -48,3 +48,7 @@ declarative language for describing rules applying to UML models.
 ## OCL Rules
 You can find the full specification of the OCL rules at the following [link](
 https://drive.google.com/file/d/1ZSJfTBcUDlBQpFoZRA0HqIF8RcusyWwj/view?usp=sharing)
+
+# Publications
+
+⋅⋅*  Mirko, D., Mauro, C., & Annalisa, N. (2017). Model-driven Engineering of Decentralized Control in Cyber-Physical Systems. https://doi.org/10.1109/FAS-W.2017.113
