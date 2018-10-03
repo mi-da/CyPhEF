@@ -59,6 +59,6 @@ declarative language for describing rules applying to UML models.
 You can find the full specification of the OCL rules at the following [link](https://drive.google.com/file/d/1ZSJfTBcUDlBQpFoZRA0HqIF8RcusyWwj/view?usp=sharing)
 
 # Publications
-* Mirko, D., Annalisa, N., & Mauro, C.. (2018). CyPhEF: A Model-driven Engineering Framework for Self-adaptive Cyber-physical. [https://dl.acm.org/citation.cfm?doid=3183440.3183483](https://dl.acm.org/citation.cfm?doid=3183440.3183483)
+* Mirko, D., Annalisa, N., & Mauro, C.. (2018). CyPhEF: A Model-driven Engineering Framework for Self-adaptive Cyber-Physical Systems. [https://dl.acm.org/citation.cfm?doid=3183440.3183483](https://dl.acm.org/citation.cfm?doid=3183440.3183483)
 
 * Mirko, D., Mauro, C., & Annalisa, N. (2017). Model-driven Engineering of Decentralized Control in Cyber-Physical Systems. [https://doi.org/10.1109/FAS-W.2017.113](https://doi.org/10.1109/FAS-W.2017.113)
